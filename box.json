@@ -1,8 +1,8 @@
 {
     "name":"Bens Json Serializer For Wheels",
-    "version":"0.1.6",
+    "version":"0.1.7",
     "author":"Brandon Shea",
-    "location":"bshea5/cfwheels-bens-json-serializer#v0.1.6",
+    "location":"bshea5/cfwheels-bens-json-serializer#v0.1.7",
     "directory":"/plugins/",
     "createPackageDirectory":true,
     "packageDirectory":"bensjsonserializer",
