@@ -1,0 +1,22 @@
+{
+  "name": "Bens Json Serializer For Wheels",
+  "version": "0.0.1",
+  "author": "Brandon Shea",
+  "location": "neokoenig/cfwheels-bens-json-serializer#v0.0.1",
+  "directory": "/plugins/",
+  "createPackageDirectory": true,
+  "packageDirectory": "bensjsonserializer",
+  "slug": "cfwheels-bens-json-serializer",
+  "type": "cfwheels-plugins",
+  "homepage": "https://github.com/bshea5/cfwheels-bens-json-serializer",
+  "shortDescription": "Swaps renderWith()'s use of serializeJson() with Ben Nadel's JsonSerializer",
+  "keywords": "JSON, serializer, serialize, CFWheels",
+  "private": false,
+  "scripts": {
+    "postVersion": "package set location='bshea5/cfwheels-bens-json-serializer#v`package version`'",
+    "patch-release": "bump --patch",
+    "minor-release": "bump --minor",
+    "major-release": "bump --major",
+    "postPublish": "!git push --follow-tags && publish"
+  }
+}
