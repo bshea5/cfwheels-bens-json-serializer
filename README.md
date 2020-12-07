@@ -1,6 +1,6 @@
 # Bens Json Serializer For Wheels - Swaps renderWith()'s use of serializeJson() with Ben Nadel's JsonSerializer
 
-Author: [Brandon Shea]
+Author: [Brandon Shea][3]
 
 CFWheel use's serializeJSON when rendering content as JSON. The results vary based on
 the Coldfusion engine in use. In order to have more control of the resulting data,
@@ -15,11 +15,40 @@ of serializeJson().
 - (Overriden) renderWith( ... ) - Overriden CFWheels core function to swap out use
   of serializeJson with JsonSerializer.
 
+## Defining Mappings
+
+<p>Below, I've used several config files to define my mappings, which are called by an index file that initializes a serializer and uses those configs to define the mappings. This setup is not requried, but it simplifies the setup <i>imo</i>. If there is no serializer defined in params or application.wheels scope, a default one will be initialized for the serialization attempt.</p>
+<pre><code>&lt;cfscript&gt;
+    writeLog("Initializing serializer mappings...");
+
+    include "./anys.cfm";
+    include "./booleans.cfm";
+    include "./dates.cfm";
+    include "./floats.cfm";
+    include "./integers.cfm";
+    include "./strings.cfm";
+    include "./excludes.cfm";
+
+    serializer = initBenSerializerDefault();
+
+    for (key in anys) serializer.asAny(key);
+    for (key in booleans) serializer.asBoolean(key);
+    for (key in dates) serializer.asDate(key);
+    for (key in floats) serializer.asFloat(key);
+    for (key in integers) serializer.asInteger(key);
+    for (key in strings) serializer.asString(key);
+    for (key in excludes) serializer.exclude(key);
+
+    writeLog("Serializer mappings initialized.");
+
+&lt;/cfscript&gt;
+</code></pre>
+
 ---
 
 # JsonSerializer.cfc - Data Serialization Utility for ColdFusion
 
-Copied & Modified for CFWheels by [Brandon Shea] <br/>
+Copied & Modified for CFWheels by [Brandon Shea][3] <br/>
 Originaly by [Ben Nadel][1] <br/>
 Original source at [Github][2] <br/>
 
@@ -44,7 +73,7 @@ the data currently has.
 - asInteger( key ) - Attempts to force the value to be a true integer.
 - asString( key ) - Forces the value to be a string (including numeric values).
 - exclude( key ) - Will exclude the key from the serialization process.
-- (NEW) asType( type, key ) - wrapper for the above functions, passing in a 'type' to determine which is called.
+- (<b>NEW</b>) asType( type, key ) - wrapper for the above functions, passing in a 'type' to determine which is called.
 
 ## All-or-Nothing
 
@@ -63,5 +92,6 @@ is why the serialization process is driven by the name of keys.
 
 [1]: http://www.bennadel.com
 [2]: https://github.com/bennadel/JsonSerializer.cfc
+[3]: https://github.com/bshea5
 
 ---
