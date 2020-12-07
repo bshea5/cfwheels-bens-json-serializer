@@ -32,7 +32,6 @@ component extends="wheels.Test"  hint="Unit Tests" {
         };
         after = benSerializeJSON(before);
         
-        assert('truthy(after)');
         assert('after EQ "{""hello"":""world"",""foo"":""1.0""}"');
     }
 
@@ -46,7 +45,6 @@ component extends="wheels.Test"  hint="Unit Tests" {
         };
         after = serializer.serialize(before);
 
-        assert('truthy(after)');
         assert('after EQ "{""hello"":""world"",""foo"":1.0}"');
     }
 }
