@@ -1,7 +1,7 @@
 language: java
 sudo: required
 jdk:
-  - oraclejdk8
+  - oraclejdk11
 before_install:
   # Get Commandbox
   - sudo apt-key adv --keyserver keys.gnupg.net --recv 6DA70622
