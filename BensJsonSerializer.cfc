@@ -209,28 +209,44 @@ mixin = "global" {
     }
 
     public array function $getDateCols() {
-        var dateColsQry = queryExecute("
-            select distinct
-                c.name as column_name
-            from sys.columns c
-            join sys.tables t
-                on t.object_id = c.object_id
-            where type_name(user_type_id) in ('date', 'datetimeoffset', 
-                'datetime2', 'smalldatetime', 'datetime', 'time')
-        ");
+        var results = [];
 
-        return valueArray(dateColsQry, "column_name");
+        try {
+            var dateColsQry = queryExecute("
+                select distinct
+                    c.name as column_name
+                from sys.columns c
+                join sys.tables t
+                    on t.object_id = c.object_id
+                where type_name(user_type_id) in ('date', 'datetimeoffset', 
+                    'datetime2', 'smalldatetime', 'datetime', 'time')
+            ");
+
+            results = valueArray(dateColsQry, "column_name");
+        } catch (any e) {
+            writelog("Unable to use datasource for date type column mappings.");
+        }
+
+        return results;
     }
 
     public array function $getFKCols() {
-        var fkColsQry = queryExecute("
-            SELECT DISTINCT KF.COLUMN_NAME column_name
-            FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS RC
-            JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KF ON RC.CONSTRAINT_NAME = KF.CONSTRAINT_NAME
-            JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KP ON RC.UNIQUE_CONSTRAINT_NAME = KP.CONSTRAINT_NAME
-            WHERE KP.COLUMN_NAME = 'id'
-        ");
+        var results = [];
+        
+        try {
+            var fkColsQry = queryExecute("
+                SELECT DISTINCT KF.COLUMN_NAME column_name
+                FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS RC
+                JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KF ON RC.CONSTRAINT_NAME = KF.CONSTRAINT_NAME
+                JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KP ON RC.UNIQUE_CONSTRAINT_NAME = KP.CONSTRAINT_NAME
+                WHERE KP.COLUMN_NAME = 'id'
+            ");
 
-        return valueArray(fkColsQry, "column_name");
+            results = valueArray(fkColsQry, "column_name");
+        } catch (any e) {
+            writelog("Unable to use datasource for foreign key mappings.");
+        }
+
+        return results;
     }
 }
