@@ -38,8 +38,8 @@ mixin = "global" {
         ];
         integers.append($getFKCols(), true);   
 
-        for (i in integers) serializer.asInteger(i);
-        for (d in dates) serializer.asDate(d);
+        for (var i in integers) serializer.asInteger(i);
+        for (var d in dates) serializer.asDate(d);
 
         return serializer;
     }
