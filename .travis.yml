@@ -16,7 +16,7 @@ install:
   # Install Master Branch; nb, installed into folder of the git repo name, i.e neokoenig/cfwheels-ical4j
   - box install cfwheels/cfwheels
   # Install the Plugin: use gitHub path to get the absolute latest rather than the forgebox version
-  - box install bshea5/cfwheels-bens-json-serializer
+  - box install install git://github.com/bshea5/cfwheels-bens-json-serializer.git#main
 before_script:
   # Master branch has a bunch of server.jsons we can use: lucee4 | lucee5 | cf10 | cf11 | cf2016
   - box server start lucee5
